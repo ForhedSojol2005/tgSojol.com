@@ -6,18 +6,20 @@ echo "================================"
 echo "       tgSojol.com Installer"
 echo "================================"
 
+URL="https://raw.githubusercontent.com/ForhedSojol2005/tgSojol.com/main/tgSojol.com"
 INSTALL_DIR="$PREFIX/bin"
-SOURCE="$(cd "$(dirname "$0")" && pwd)/tgSojol.com"
+TARGET="$INSTALL_DIR/tgSojol"
 
-if [ ! -f "$SOURCE" ]; then
-    echo "❌ tgSojol.com file পাওয়া যায়নি।"
-    exit 1
+echo "📥 GitHub থেকে tgSojol download হচ্ছে..."
+
+if ! command -v curl >/dev/null 2>&1; then
+    echo "📦 curl install করা হচ্ছে..."
+    pkg install -y curl
 fi
 
-echo "📦 Installing tgSojol.com..."
+curl -fL "$URL" -o "$TARGET"
 
-cp "$SOURCE" "$INSTALL_DIR/tgSojol"
-chmod 755 "$INSTALL_DIR/tgSojol"
+chmod 755 "$TARGET"
 
 echo ""
 echo "✅ tgSojol successfully installed!"
